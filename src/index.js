@@ -56,18 +56,27 @@ componentDidMount(){
        );
 
 }
+
+renderContent(){
+    if(this.state.errMessage && !this.state.lat) {
+        return <div>{this.state.errMessage}</div>;
+    } 
+    if(!this.state.errMessage && this.state.lat) {
+        return <SeasonDisplay lat={this.state.lat}/>
+    }
+    if(!this.state.errMessage && !this.state.lat) {
+        return <Spinner message={"Please accept location request..."}/>
+    }
+}
 // React says we have to define render
     render() {
        
-        if(this.state.errMessage && !this.state.lat) {
-            return <div>{this.state.errMessage}</div>;
-        } 
-        if(!this.state.errMessage && this.state.lat) {
-            return <SeasonDisplay lat={this.state.lat}/>
-        }
-        if(!this.state.errMessage && !this.state.lat) {
-            return <Spinner message={"Please accept location request..."}/>
-        }
+       return(
+    //    <div className="border red">
+    <div style={{border: "9px solid red",}}>
+       {this.renderContent()}
+       </div>
+       );
     }
 }
 
