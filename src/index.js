@@ -25,7 +25,8 @@ constructor(props) {
 // So the general idea is that we might make use of this state property inside of our JSX OR Other fucntions inside of our components 
 // THIS IS THE ONLY TIME WE DO DIRECT ASSIGNMENT TO THIS.STATE 
 this.state = {
-    lat: null
+    lat: null,
+    errMessage: ''
 };
 // the render method is going to be called all the time not best practice to addd the function in there especially if it takes time to load
 // So since the constructor is the first things to get initalized it will initalize this funtion and we will get the location first as well even though it loads slow,
@@ -40,7 +41,7 @@ this.state = {
             // the one single exception to this rule is when we initalize our state inside the constructor function 
         },
         // console.log(position), so when we console.loged this we saw that it prented out the position we are in. It was an object with a lot of junk but it also included latitute, we want that latiude, manipulate to get that latitude 
-        err => console.log(err)
+        err => this.setState({errMessage: err.message })
    );
 
 }
@@ -51,7 +52,9 @@ this.state = {
        
         return (
             <div>
-                Latitude:{this.state.lat}
+                Latitude:{this.state.lat} 
+                <br />
+                ErrorMessage: {this.state.errMessage}
             </div>
         );
     }
